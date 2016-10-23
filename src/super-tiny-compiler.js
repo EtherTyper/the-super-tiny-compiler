@@ -1,3 +1,5 @@
+module.exports = exports;
+
 /**
  * TTTTTTTTTTTTTTTTTTTTTTTHHHHHHHHH     HHHHHHHHHEEEEEEEEEEEEEEEEEEEEEE
  * T:::::::::::::::::::::TH:::::::H     H:::::::HE::::::::::::::::::::E
@@ -340,7 +342,7 @@
 
 // We start by accepting an input string of code, and we're gonna set up two
 // things...
-function tokenizer(input) {
+export function tokenizer(input) {
 
   // A `current` variable for tracking our position in the code like a cursor.
   var current = 0;
@@ -490,7 +492,7 @@ function tokenizer(input) {
  */
 
 // Okay, so we define a `parser` function that accepts our array of `tokens`.
-function parser(tokens) {
+export function parser(tokens) {
 
   // Again we keep a `current` variable that we will use as a cursor.
   var current = 0;
@@ -652,7 +654,7 @@ function parser(tokens) {
 
 // So we define a traverser function which accepts an AST and a
 // visitor. Inside we're going to define two functions...
-function traverser(ast, visitor) {
+export function traverser(ast, visitor) {
 
   // A `traverseArray` function that will allow us to iterate over an array and
   // call the next function that we will define: `traverseNode`.
@@ -759,7 +761,7 @@ function traverser(ast, visitor) {
  */
 
 // So we have our transformer function which will accept the lisp ast.
-function transformer(ast) {
+export function transformer(ast) {
 
   // We'll create a `newAst` which like our previous AST will have a program
   // node.
@@ -847,7 +849,7 @@ function transformer(ast) {
  * the tree into one giant string.
  */
 
-function codeGenerator(node) {
+export function codeGenerator(node) {
 
   // We'll break things down by the `type` of the `node`.
   switch (node.type) {
@@ -910,7 +912,7 @@ function codeGenerator(node) {
  *   4. newAst => generator   => output
  */
 
-function compiler(input) {
+export function compiler(input) {
   var tokens = tokenizer(input);
   var ast    = parser(tokens);
   var newAst = transformer(ast);
@@ -926,12 +928,3 @@ function compiler(input) {
  * !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!YOU MADE IT!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
  * ============================================================================
  */
-
-// Now I'm just exporting everything...
-module.exports = {
-  tokenizer: tokenizer,
-  parser: parser,
-  transformer: transformer,
-  codeGenerator: codeGenerator,
-  compiler: compiler
-};
